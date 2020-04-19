@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "40981415565",
+    "firebase_url": "https://math-trivia-5842e.firebaseio.com",
+    "project_id": "math-trivia-5842e",
+    "storage_bucket": "math-trivia-5842e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40981415565:android:7faf70504315fc19c444c4",
+        "android_client_info": {
+          "package_name": "com.BattleOfWits"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40981415565-hhlg7dgd2eetb92gjh1ms1la8o21k2g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBggQWmZ2XA2uAYLNTYiJfSlqbE37JgcD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40981415565-hhlg7dgd2eetb92gjh1ms1la8o21k2g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40981415565:android:a988336592c9fa0bc444c4",
+        "android_client_info": {
+          "package_name": "com.mathtrivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40981415565-hhlg7dgd2eetb92gjh1ms1la8o21k2g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBggQWmZ2XA2uAYLNTYiJfSlqbE37JgcD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40981415565-hhlg7dgd2eetb92gjh1ms1la8o21k2g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
