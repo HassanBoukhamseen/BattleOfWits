@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Question Goes Here"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,58 +23,57 @@
 
     <Button
         android:id="@+id/Answer4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="375dp"
+        android:layout_height="56dp"
         android:text="Fourth Option"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <Button
         android:id="@+id/Answer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="375dp"
+        android:layout_height="56dp"
         android:text="First Option"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <Button
         android:id="@+id/Answer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="375dp"
+        android:layout_height="56dp"
         android:text="Second Option"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.554" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
         android:id="@+id/Answer3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="375dp"
+        android:layout_height="56dp"
         android:text="Third Option"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.654" />
+        app:layout_constraintVertical_bias="0.65" />
 
     <Button
         android:id="@+id/NextQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start"
+        android:layout_width="190dp"
+        android:layout_height="72dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="Let's Go"
+        android:textAllCaps="false"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

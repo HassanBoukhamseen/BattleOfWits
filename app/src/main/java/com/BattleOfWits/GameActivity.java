@@ -139,9 +139,10 @@ public class GameActivity extends HomeActivity {
                                 }
                             }
 
-                            Collections.shuffle(answers);
-                            Collections.shuffle(answers);
-                            Collections.shuffle(answers);
+                            // Loop to shuffle the answers.
+                            for (int i = 0; i < 3; i++) {
+                                Collections.shuffle(answers);
+                            }
                             Questions.setText(question);
                             Answer1.setText(answers.get(2));
                             Answer2.setText(answers.get(0));
