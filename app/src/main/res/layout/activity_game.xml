@@ -27,7 +27,8 @@
     <Button
         android:id="@+id/Answer4"
         android:layout_width="375dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:text="Fourth Option"
         android:textAllCaps="false"
@@ -40,7 +41,8 @@
     <Button
         android:id="@+id/Answer1"
         android:layout_width="375dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:text="First Option"
         android:textAllCaps="false"
@@ -54,7 +56,8 @@
     <Button
         android:id="@+id/Answer2"
         android:layout_width="375dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:text="Second Option"
         android:textAllCaps="false"
@@ -67,7 +70,8 @@
     <Button
         android:id="@+id/Answer3"
         android:layout_width="375dp"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:text="Third Option"
         android:textAllCaps="false"
