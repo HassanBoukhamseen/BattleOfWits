@@ -58,8 +58,8 @@ public class GameActivity extends HomeActivity {
         NextQuestion.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                JsonParse();
                 NextQuestion.setVisibility(View.GONE);
+                JsonParse();
                 Questions.setVisibility(View.VISIBLE);
                 Answer1.setVisibility(View.VISIBLE);
                 Answer2.setVisibility(View.VISIBLE);
