@@ -46,10 +46,18 @@ public class GameActivity extends HomeActivity {
         Answer3 = findViewById(R.id.Answer3);
         Answer4 = findViewById(R.id.Answer4);
         NextQuestion = findViewById(R.id.NextQuestion);
+        Answer1.setVisibility(View.GONE);
+        Answer2.setVisibility(View.GONE);
+        Answer3.setVisibility(View.GONE);
+        Answer4.setVisibility(View.GONE);
         NextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JsonParse();
+                Answer1.setVisibility(View.VISIBLE);
+                Answer2.setVisibility(View.VISIBLE);
+                Answer3.setVisibility(View.VISIBLE);
+                Answer4.setVisibility(View.VISIBLE);
                 NextQuestion.setVisibility(View.GONE);
             }
         });
@@ -61,6 +69,7 @@ public class GameActivity extends HomeActivity {
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
+                Index++;
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
@@ -73,6 +82,7 @@ public class GameActivity extends HomeActivity {
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
+                Index++;
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
@@ -85,6 +95,7 @@ public class GameActivity extends HomeActivity {
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
+                Index++;
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
@@ -97,6 +108,7 @@ public class GameActivity extends HomeActivity {
                 if (Answer4.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
+                Index++;
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
@@ -148,7 +160,6 @@ public class GameActivity extends HomeActivity {
                             Answer2.setText(answers.get(0));
                             Answer3.setText(answers.get(1));
                             Answer4.setText(answers.get(3));
-                            Index++;
 
                         } catch (JSONException e) {
                             e.printStackTrace();
