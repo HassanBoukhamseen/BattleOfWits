@@ -21,6 +21,7 @@ import java.util.Random;
 import java.util.Collections;
 
 public class GameActivity extends HomeActivity {
+
     private RequestQueue QueueRequest;
     private TextView Questions;
     private Button Answer1, Answer2, Answer3, Answer4, NextQuestion;
@@ -35,37 +36,46 @@ public class GameActivity extends HomeActivity {
     static int Index;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         QueueRequest = Volley.newRequestQueue(this);
+
         Questions = findViewById(R.id.Question);
         Answer1 = findViewById(R.id.Answer1);
         Answer2 = findViewById(R.id.Answer2);
         Answer3 = findViewById(R.id.Answer3);
         Answer4 = findViewById(R.id.Answer4);
-        NextQuestion = findViewById(R.id.NextQuestion);
+
+        Questions.setVisibility(View.GONE);
         Answer1.setVisibility(View.GONE);
         Answer2.setVisibility(View.GONE);
         Answer3.setVisibility(View.GONE);
         Answer4.setVisibility(View.GONE);
+
+        NextQuestion = findViewById(R.id.NextQuestion);
         NextQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 JsonParse();
+                NextQuestion.setVisibility(View.GONE);
+                Questions.setVisibility(View.VISIBLE);
                 Answer1.setVisibility(View.VISIBLE);
                 Answer2.setVisibility(View.VISIBLE);
                 Answer3.setVisibility(View.VISIBLE);
                 Answer4.setVisibility(View.VISIBLE);
-                NextQuestion.setVisibility(View.GONE);
+
             }
         });
+
         final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
 
         Answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NextQuestion.setVisibility(View.GONE);
+                JsonParse();
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
@@ -73,12 +83,15 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
-                JsonParse();
+
             }
         });
+
         Answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NextQuestion.setVisibility(View.GONE);
+                JsonParse();
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
@@ -86,12 +99,14 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
-                JsonParse();
             }
         });
+
         Answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NextQuestion.setVisibility(View.GONE);
+                JsonParse();
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
@@ -99,12 +114,14 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
-                JsonParse();
             }
         });
+
         Answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NextQuestion.setVisibility(View.GONE);
+                JsonParse();
                 if (Answer4.getText().toString().equals(correctAnswer)) {
                     count++;
                 }
@@ -112,7 +129,6 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
-                JsonParse();
             }
         });
     }
@@ -126,6 +142,7 @@ public class GameActivity extends HomeActivity {
                         try {
                             JSONArray Array = response.getJSONArray("results");
                             for (int i = 0; i < Array.length(); i++) {
+
                                 JSONObject result = Array.getJSONObject(rand.nextInt(50));
                                 question = result.getString("question");
                                 byte[] actualByte = Base64.getDecoder().decode(question);
@@ -135,7 +152,9 @@ public class GameActivity extends HomeActivity {
                                 correctAnswer = new String(ca);
                                 answers.set(3, correctAnswer);
                                 JSONArray incorrectAnswer = result.getJSONArray("incorrect_answers");
+
                                 for (int j = 0; j < incorrectAnswer.length(); j++) {
+
                                     firstAnswer = incorrectAnswer.getString(0);
                                     byte[] fa = Base64.getDecoder().decode(firstAnswer);
                                     firstAnswer = new String(fa);
@@ -148,6 +167,7 @@ public class GameActivity extends HomeActivity {
                                     byte[] ta = Base64.getDecoder().decode(thirdAnswer);
                                     thirdAnswer = new String(ta);
                                     answers.set(2, thirdAnswer);
+
                                 }
                             }
 
@@ -155,6 +175,7 @@ public class GameActivity extends HomeActivity {
                             for (int i = 0; i < 3; i++) {
                                 Collections.shuffle(answers);
                             }
+
                             Questions.setText(question);
                             Answer1.setText(answers.get(2));
                             Answer2.setText(answers.get(0));

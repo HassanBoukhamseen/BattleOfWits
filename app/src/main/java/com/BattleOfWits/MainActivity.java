@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Button SignUp;
+    private Button SignUp, DA;
     private EditText Email, Password;
     private TextView  AccountExists;
     private String email, password;
@@ -32,7 +32,15 @@ public class MainActivity extends AppCompatActivity {
         Email = findViewById(R.id.Email);
         Password = findViewById(R.id.Password);
         SignUp = findViewById(R.id.SignUp);
+        DA = findViewById(R.id.DA);
         auth = FirebaseAuth.getInstance();
+        DA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent quickAccess = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(quickAccess);
+            }
+        });
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
