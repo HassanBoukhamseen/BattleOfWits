@@ -3,8 +3,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,6 +33,7 @@ import static android.graphics.Color.red;
 public class GameActivity extends HomeActivity {
 
     private RequestQueue QueueRequest;
+    //private ConstraintLayout totalBackground;
     private TextView Questions;
     private Button Answer1, Answer2, Answer3, Answer4, NextQuestion;
     private String firstAnswer;
@@ -52,6 +58,8 @@ public class GameActivity extends HomeActivity {
         Answer2 = findViewById(R.id.Answer2);
         Answer3 = findViewById(R.id.Answer3);
         Answer4 = findViewById(R.id.Answer4);
+        //totalBackground = findViewById(R.id.totalBackground);
+
 
         Questions.setVisibility(View.GONE);
         Answer1.setVisibility(View.GONE);
@@ -82,10 +90,14 @@ public class GameActivity extends HomeActivity {
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     Answer1.setTextColor(GREEN);
+                    // Tirth added this line.
+                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer1.getText().toString().equals(correctAnswer))) {
                     Answer1.setTextColor(RED);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -103,10 +115,14 @@ public class GameActivity extends HomeActivity {
                 JsonParse();
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     Answer2.setTextColor(GREEN);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer2.getText().toString().equals(correctAnswer))) {
                     Answer2.setTextColor(RED);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -122,10 +138,14 @@ public class GameActivity extends HomeActivity {
                 JsonParse();
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     Answer3.setTextColor(GREEN);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer3.getText().toString().equals(correctAnswer))) {
                     Answer3.setTextColor(RED);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -141,9 +161,13 @@ public class GameActivity extends HomeActivity {
                 JsonParse();
                 if (Answer4.getText().toString().equals(correctAnswer)) {
                     Answer4.setTextColor(GREEN);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
                     Answer4.setTextColor(RED);
+                    // Tirth add this line.
+                    //totalBackground.setBackgroundColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -205,6 +229,9 @@ public class GameActivity extends HomeActivity {
                             Answer2.setTextColor(Color.BLACK);
                             Answer3.setTextColor(Color.BLACK);
                             Answer4.setTextColor(Color.BLACK);
+                            //totalBackground.setBackgroundColor(Color.parseColor("#00BCD4"));
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
