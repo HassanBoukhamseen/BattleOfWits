@@ -2,6 +2,7 @@ package com.BattleOfWits;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,12 +24,12 @@ import java.util.Collections;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
-import static android.graphics.Color.red;
+import static android.graphics.Color.WHITE;
 
 public class GameActivity extends HomeActivity {
 
     private RequestQueue QueueRequest;
-    private TextView Questions;
+    private TextView Questions, timerText;
     private Button Answer1, Answer2, Answer3, Answer4, NextQuestion;
     private String firstAnswer;
     private String secondAnswer;
@@ -39,6 +40,8 @@ public class GameActivity extends HomeActivity {
     static int count = 0;
     static int temp = 0;
     static int Index;
+    int seconds = 10;
+    private CountDownTimer timer;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +62,33 @@ public class GameActivity extends HomeActivity {
         Answer3.setVisibility(View.GONE);
         Answer4.setVisibility(View.GONE);
 
+        timerText = findViewById(R.id.Timer);
+        timerText.setTextColor(WHITE);
+
+        timer = new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerText.setText(seconds + " Seconds Left");
+                seconds -= 1;
+                if (seconds == -2) {
+                    onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                seconds = 10;
+                timerText.setText(seconds + " Seconds Left");
+                JsonParse();
+            }
+
+        };
+
         NextQuestion = findViewById(R.id.NextQuestion);
         NextQuestion.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 Questions.setVisibility(View.VISIBLE);
@@ -70,7 +96,6 @@ public class GameActivity extends HomeActivity {
                 Answer2.setVisibility(View.VISIBLE);
                 Answer3.setVisibility(View.VISIBLE);
                 Answer4.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -79,6 +104,7 @@ public class GameActivity extends HomeActivity {
         Answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     Answer1.setTextColor(GREEN);
@@ -92,15 +118,14 @@ public class GameActivity extends HomeActivity {
                     startActivity(Home);
                 }
                 JsonParse();
-
             }
         });
 
         Answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     Answer2.setTextColor(GREEN);
                     count++;
@@ -112,14 +137,15 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
+                JsonParse();
             }
         });
 
         Answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     Answer3.setTextColor(GREEN);
                     count++;
@@ -131,14 +157,16 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
+                JsonParse();
             }
         });
 
         Answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
+
                 if (Answer4.getText().toString().equals(correctAnswer)) {
                     Answer4.setTextColor(GREEN);
                     count++;
@@ -149,6 +177,7 @@ public class GameActivity extends HomeActivity {
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
+                JsonParse();
             }
         });
     }
@@ -188,6 +217,7 @@ public class GameActivity extends HomeActivity {
                                     thirdAnswer = new String(ta);
                                     answers.set(2, thirdAnswer);
 
+
                                 }
                             }
 
@@ -205,6 +235,9 @@ public class GameActivity extends HomeActivity {
                             Answer2.setTextColor(Color.BLACK);
                             Answer3.setTextColor(Color.BLACK);
                             Answer4.setTextColor(Color.BLACK);
+
+                            timer.cancel();
+                            timer.start();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
