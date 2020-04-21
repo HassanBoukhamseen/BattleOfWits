@@ -1,5 +1,6 @@
 package com.BattleOfWits;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,10 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.Collections;
+
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
+import static android.graphics.Color.red;
 
 public class GameActivity extends HomeActivity {
 
@@ -75,14 +80,18 @@ public class GameActivity extends HomeActivity {
             @Override
             public void onClick(View v) {
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
                 if (Answer1.getText().toString().equals(correctAnswer)) {
+                    Answer1.setTextColor(GREEN);
                     count++;
+                }
+                else if (!(Answer1.getText().toString().equals(correctAnswer))) {
+                    Answer1.setTextColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
                     startActivity(Home);
                 }
+                JsonParse();
 
             }
         });
@@ -93,7 +102,11 @@ public class GameActivity extends HomeActivity {
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 if (Answer2.getText().toString().equals(correctAnswer)) {
+                    Answer2.setTextColor(GREEN);
                     count++;
+                }
+                else if (!(Answer2.getText().toString().equals(correctAnswer))) {
+                    Answer2.setTextColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -108,7 +121,11 @@ public class GameActivity extends HomeActivity {
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 if (Answer3.getText().toString().equals(correctAnswer)) {
+                    Answer3.setTextColor(GREEN);
                     count++;
+                }
+                else if (!(Answer3.getText().toString().equals(correctAnswer))) {
+                    Answer3.setTextColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -123,7 +140,10 @@ public class GameActivity extends HomeActivity {
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 if (Answer4.getText().toString().equals(correctAnswer)) {
+                    Answer4.setTextColor(GREEN);
                     count++;
+                } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
+                    Answer4.setTextColor(RED);
                 }
                 Index++;
                 if (Index % 15 == 0) {
@@ -181,6 +201,10 @@ public class GameActivity extends HomeActivity {
                             Answer2.setText(answers.get(0));
                             Answer3.setText(answers.get(1));
                             Answer4.setText(answers.get(3));
+                            Answer1.setTextColor(Color.BLACK);
+                            Answer2.setTextColor(Color.BLACK);
+                            Answer3.setTextColor(Color.BLACK);
+                            Answer4.setTextColor(Color.BLACK);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
