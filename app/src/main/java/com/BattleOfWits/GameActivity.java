@@ -2,14 +2,10 @@ package com.BattleOfWits;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,13 +24,12 @@ import java.util.Collections;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
-import static android.graphics.Color.red;
+import static android.graphics.Color.WHITE;
 
 public class GameActivity extends HomeActivity {
 
     private RequestQueue QueueRequest;
-    //private ConstraintLayout totalBackground;
-    private TextView Questions;
+    private TextView Questions, timerText;
     private Button Answer1, Answer2, Answer3, Answer4, NextQuestion;
     private String firstAnswer;
     private String secondAnswer;
@@ -45,6 +40,9 @@ public class GameActivity extends HomeActivity {
     static int count = 0;
     static int temp = 0;
     static int Index;
+    int seconds = 10;
+    private CountDownTimer timer;
+    int s = 1;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +56,6 @@ public class GameActivity extends HomeActivity {
         Answer2 = findViewById(R.id.Answer2);
         Answer3 = findViewById(R.id.Answer3);
         Answer4 = findViewById(R.id.Answer4);
-        //totalBackground = findViewById(R.id.totalBackground);
-
 
         Questions.setVisibility(View.GONE);
         Answer1.setVisibility(View.GONE);
@@ -67,10 +63,54 @@ public class GameActivity extends HomeActivity {
         Answer3.setVisibility(View.GONE);
         Answer4.setVisibility(View.GONE);
 
+        timerText = findViewById(R.id.Timer);
+        timerText.setTextColor(WHITE);
+
+        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
+
+        timer = new CountDownTimer(10000, 700) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerText.setText(seconds + " Seconds Left");
+                seconds -= 1;
+                if (seconds == -2) {
+                    onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                seconds = 10;
+                timerText.setText(seconds + " Seconds Left");
+                JsonParse();
+            }
+
+        };
+        final CountDownTimer t = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                s -= 1;
+                timer.cancel();
+                if (s == -3) {
+                    onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if (Index % 15 == 0) {
+                    startActivity(Home);
+                } else {
+                    JsonParse();
+                }
+            }
+        };
+
         NextQuestion = findViewById(R.id.NextQuestion);
         NextQuestion.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 Questions.setVisibility(View.VISIBLE);
@@ -78,101 +118,103 @@ public class GameActivity extends HomeActivity {
                 Answer2.setVisibility(View.VISIBLE);
                 Answer3.setVisibility(View.VISIBLE);
                 Answer4.setVisibility(View.VISIBLE);
-
             }
         });
 
-        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
 
         Answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     Answer1.setTextColor(GREEN);
-                    // Tirth added this line.
-                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer1.getText().toString().equals(correctAnswer))) {
                     Answer1.setTextColor(RED);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
-                JsonParse();
-
+                t.start();
             }
         });
 
         Answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     Answer2.setTextColor(GREEN);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer2.getText().toString().equals(correctAnswer))) {
                     Answer2.setTextColor(RED);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(RED);
+                    if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
+                t.start();
             }
         });
 
         Answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     Answer3.setTextColor(GREEN);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 }
                 else if (!(Answer3.getText().toString().equals(correctAnswer))) {
                     Answer3.setTextColor(RED);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
+                t.start();
             }
         });
 
         Answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
-                JsonParse();
+
                 if (Answer4.getText().toString().equals(correctAnswer)) {
                     Answer4.setTextColor(GREEN);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(GREEN);
                     count++;
                 } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
                     Answer4.setTextColor(RED);
-                    // Tirth add this line.
-                    //totalBackground.setBackgroundColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
+                t.start();
             }
         });
     }
@@ -212,6 +254,7 @@ public class GameActivity extends HomeActivity {
                                     thirdAnswer = new String(ta);
                                     answers.set(2, thirdAnswer);
 
+
                                 }
                             }
 
@@ -229,9 +272,9 @@ public class GameActivity extends HomeActivity {
                             Answer2.setTextColor(Color.BLACK);
                             Answer3.setTextColor(Color.BLACK);
                             Answer4.setTextColor(Color.BLACK);
-                            //totalBackground.setBackgroundColor(Color.parseColor("#00BCD4"));
 
-
+                            timer.cancel();
+                            timer.start();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
