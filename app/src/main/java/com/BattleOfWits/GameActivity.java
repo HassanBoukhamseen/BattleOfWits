@@ -42,6 +42,7 @@ public class GameActivity extends HomeActivity {
     static int Index;
     int seconds = 10;
     private CountDownTimer timer;
+    int s = 1;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,9 @@ public class GameActivity extends HomeActivity {
         timerText = findViewById(R.id.Timer);
         timerText.setTextColor(WHITE);
 
-        timer = new CountDownTimer(10000, 1000) {
+        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
+
+        timer = new CountDownTimer(10000, 700) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerText.setText(seconds + " Seconds Left");
@@ -83,6 +86,25 @@ public class GameActivity extends HomeActivity {
             }
 
         };
+        final CountDownTimer t = new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                s -= 1;
+                timer.cancel();
+                if (s == -3) {
+                    onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if (Index % 15 == 0) {
+                    startActivity(Home);
+                } else {
+                    JsonParse();
+                }
+            }
+        };
 
         NextQuestion = findViewById(R.id.NextQuestion);
         NextQuestion.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +121,6 @@ public class GameActivity extends HomeActivity {
             }
         });
 
-        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
 
         Answer1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,12 +133,16 @@ public class GameActivity extends HomeActivity {
                 }
                 else if (!(Answer1.getText().toString().equals(correctAnswer))) {
                     Answer1.setTextColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
-                JsonParse();
+                t.start();
             }
         });
 
@@ -132,12 +157,16 @@ public class GameActivity extends HomeActivity {
                 }
                 else if (!(Answer2.getText().toString().equals(correctAnswer))) {
                     Answer2.setTextColor(RED);
+                    if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
-                JsonParse();
+                t.start();
             }
         });
 
@@ -152,12 +181,16 @@ public class GameActivity extends HomeActivity {
                 }
                 else if (!(Answer3.getText().toString().equals(correctAnswer))) {
                     Answer3.setTextColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
+                        Answer4.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
-                JsonParse();
+                t.start();
             }
         });
 
@@ -172,12 +205,16 @@ public class GameActivity extends HomeActivity {
                     count++;
                 } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
                     Answer4.setTextColor(RED);
+                    if (Answer2.getText().toString().equals(correctAnswer)) {
+                        Answer2.setTextColor(GREEN);
+                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
+                        Answer3.setTextColor(GREEN);
+                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
+                        Answer1.setTextColor(GREEN);
+                    }
                 }
                 Index++;
-                if (Index % 15 == 0) {
-                    startActivity(Home);
-                }
-                JsonParse();
+                t.start();
             }
         });
     }
