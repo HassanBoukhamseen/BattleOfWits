@@ -2,8 +2,10 @@ package com.BattleOfWits;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.VibrationEffect;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 import java.util.Collections;
+import android.os.Vibrator;
 
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
@@ -45,6 +48,16 @@ public class GameActivity extends HomeActivity {
     private CountDownTimer timer;
     int s = 1;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
+
+    // Vibrate for 500 milliseconds
+    private void shakeItBaby() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            //VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,12 +142,11 @@ public class GameActivity extends HomeActivity {
                 seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
-
                     Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
-                }
-                else if (!(Answer1.getText().toString().equals(correctAnswer))) {
+                } else if (!(Answer1.getText().toString().equals(correctAnswer))) {
                     Answer1.setBackgroundTintList(ColorStateList.valueOf(RED));
+                    shakeItBaby();
                     if (Answer2.getText().toString().equals(correctAnswer)) {
                         Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
@@ -156,9 +168,9 @@ public class GameActivity extends HomeActivity {
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
-                }
-                else if (!(Answer2.getText().toString().equals(correctAnswer))) {
+                } else if (!(Answer2.getText().toString().equals(correctAnswer))) {
                     Answer2.setBackgroundTintList(ColorStateList.valueOf(RED));
+                    shakeItBaby();
                     if (Answer1.getText().toString().equals(correctAnswer)) {
                         Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
@@ -180,9 +192,9 @@ public class GameActivity extends HomeActivity {
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
-                }
-                else if (!(Answer3.getText().toString().equals(correctAnswer))) {
+                } else if (!(Answer3.getText().toString().equals(correctAnswer))) {
                     Answer3.setBackgroundTintList(ColorStateList.valueOf(RED));
+                    shakeItBaby();
                     if (Answer2.getText().toString().equals(correctAnswer)) {
                         Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer1.getText().toString().equals(correctAnswer)) {
@@ -207,6 +219,7 @@ public class GameActivity extends HomeActivity {
                     count++;
                 } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
                     Answer4.setBackgroundTintList(ColorStateList.valueOf(RED));
+                    shakeItBaby();
                     if (Answer2.getText().toString().equals(correctAnswer)) {
                         Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
@@ -292,4 +305,6 @@ public class GameActivity extends HomeActivity {
         });
         QueueRequest.add(request);
     }
+
 }
+
