@@ -298,7 +298,7 @@ public class GameActivity extends HomeActivity {
                             Answer3.setText(answers.get(1));
                             Answer4.setText(answers.get(3));
 
-                            int ourColor = Color.parseColor("#F5F2E4");
+                            int ourColor = Color.parseColor("#0F709C");
                             Answer1.setBackgroundTintList(ColorStateList.valueOf(ourColor));
                             Answer2.setBackgroundTintList(ColorStateList.valueOf(ourColor));
                             Answer3.setBackgroundTintList(ColorStateList.valueOf(ourColor));
