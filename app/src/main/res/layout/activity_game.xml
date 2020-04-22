@@ -28,6 +28,7 @@
         android:id="@+id/Answer4"
         android:layout_width="375dp"
         android:layout_height="60dp"
+        android:background="@android:color/holo_orange_light"
         android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:textAllCaps="false"
@@ -35,12 +36,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.78" />
 
     <Button
         android:id="@+id/Answer1"
         android:layout_width="375dp"
         android:layout_height="60dp"
+        android:background="@android:color/holo_orange_light"
         android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:textAllCaps="false"
@@ -55,6 +57,7 @@
         android:id="@+id/Answer2"
         android:layout_width="375dp"
         android:layout_height="60dp"
+        android:background="@android:color/holo_orange_light"
         android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:textAllCaps="false"
@@ -62,12 +65,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.56" />
 
     <Button
         android:id="@+id/Answer3"
         android:layout_width="375dp"
         android:layout_height="60dp"
+        android:background="@android:color/holo_orange_light"
         android:backgroundTint="@android:color/holo_orange_light"
         android:fontFamily="casual"
         android:textAllCaps="false"
@@ -75,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.67" />
 
     <Button
         android:id="@+id/NextQuestion"

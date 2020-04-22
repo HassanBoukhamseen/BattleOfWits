@@ -1,5 +1,6 @@
 package com.BattleOfWits;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -128,17 +129,24 @@ public class GameActivity extends HomeActivity {
                 seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
-                    Answer1.setTextColor(GREEN);
+                    //Answer1.setTextColor(GREEN);--------------------------------------------------(Hassan's code!)
+                    //Color.parseColor("color/holo_orange_light")---------(ignore this pls)
+
+                    Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                 }
                 else if (!(Answer1.getText().toString().equals(correctAnswer))) {
-                    Answer1.setTextColor(RED);
+                    //Answer1.setTextColor(RED);----------------------------------------------------(Hassan's code!)
+                    Answer1.setBackgroundTintList(ColorStateList.valueOf(RED));
                     if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setTextColor(GREEN);
+                        //Answer2.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setTextColor(GREEN);
+                        //Answer3.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setTextColor(GREEN);
+                        //Answer4.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
                 Index++;
@@ -152,17 +160,22 @@ public class GameActivity extends HomeActivity {
                 seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer2.getText().toString().equals(correctAnswer)) {
-                    Answer2.setTextColor(GREEN);
+                    //Answer2.setTextColor(GREEN);--------------------------------------------------(Hassan's code!)
+                    Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                 }
                 else if (!(Answer2.getText().toString().equals(correctAnswer))) {
-                    Answer2.setTextColor(RED);
+                    //Answer2.setTextColor(RED);----------------------------------------------------(Hassan's code!)
+                    Answer2.setBackgroundTintList(ColorStateList.valueOf(RED));
                     if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setTextColor(GREEN);
+                        //Answer1.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setTextColor(GREEN);
+                        //Answer3.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setTextColor(GREEN);
+                        //Answer4.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
                 Index++;
@@ -176,17 +189,22 @@ public class GameActivity extends HomeActivity {
                 seconds = 10;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer3.getText().toString().equals(correctAnswer)) {
-                    Answer3.setTextColor(GREEN);
+                    //Answer3.setTextColor(GREEN);--------------------------------------------------(Hassan's code!)
+                    Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                 }
                 else if (!(Answer3.getText().toString().equals(correctAnswer))) {
-                    Answer3.setTextColor(RED);
+                    //Answer3.setTextColor(RED);----------------------------------------------------(Hassan's code!)
+                    Answer3.setBackgroundTintList(ColorStateList.valueOf(RED));
                     if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setTextColor(GREEN);
+                        //Answer2.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setTextColor(GREEN);
+                        //Answer1.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setTextColor(GREEN);
+                        //Answer4.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
                 Index++;
@@ -201,16 +219,21 @@ public class GameActivity extends HomeActivity {
                 NextQuestion.setVisibility(View.GONE);
 
                 if (Answer4.getText().toString().equals(correctAnswer)) {
-                    Answer4.setTextColor(GREEN);
+                    //Answer4.setTextColor(GREEN);--------------------------------------------------(Hassan's code!)
+                    Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                 } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
-                    Answer4.setTextColor(RED);
+                    //Answer4.setTextColor(RED);----------------------------------------------------(Hassan's code!)
+                    Answer4.setBackgroundTintList(ColorStateList.valueOf(RED));
                     if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setTextColor(GREEN);
+                        //Answer2.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setTextColor(GREEN);
+                        //Answer3.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     } else if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setTextColor(GREEN);
+                        //Answer1.setTextColor(GREEN);----------------------------------------------(Hassan's code!)
+                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
                 Index++;
@@ -268,10 +291,17 @@ public class GameActivity extends HomeActivity {
                             Answer2.setText(answers.get(0));
                             Answer3.setText(answers.get(1));
                             Answer4.setText(answers.get(3));
-                            Answer1.setTextColor(Color.BLACK);
-                            Answer2.setTextColor(Color.BLACK);
-                            Answer3.setTextColor(Color.BLACK);
-                            Answer4.setTextColor(Color.BLACK);
+                            // This is Tirth's Code!!
+                            int ourColor = Color.parseColor("#FFFFBB33");
+                            Answer1.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            Answer2.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            Answer3.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            Answer4.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            // This is Hassan's Code!!
+                            //Answer1.setTextColor(Color.BLACK);
+                            //Answer2.setTextColor(Color.BLACK);
+                            //Answer3.setTextColor(Color.BLACK);
+                            //Answer4.setTextColor(Color.BLACK);
 
                             timer.cancel();
                             timer.start();
