@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -30,7 +31,8 @@ import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 import static android.graphics.Color.WHITE;
 
-public class GameActivity extends HomeActivity {
+
+public class GameActivity extends CustomizationActivity {
 
     private RequestQueue QueueRequest;
     private TextView Questions, timerText;
@@ -40,16 +42,22 @@ public class GameActivity extends HomeActivity {
     private String thirdAnswer;
     private String question;
     private String correctAnswer;
+    private String difficulty;
+    static String diff = "medium";
+    private String category;
     private Random rand = new Random();
     static int count = 0;
     static int temp = 0;
     static int Index;
+    static int time = 0;
+    static int quest = 0;
+    int NumberOfQ = 15;
+    int TimePerQ = 10;
     int seconds = 10;
     private CountDownTimer timer;
     int s = 1;
     List<String> answers = new ArrayList<>(Arrays.asList("0", "1", "2", "3"));
 
-    // Vibrate for 500 milliseconds
     private void shakeItBaby() {
         if (Build.VERSION.SDK_INT >= 29) {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(VibrationEffect.createPredefined(2));
@@ -90,9 +98,16 @@ public class GameActivity extends HomeActivity {
         timerText = findViewById(R.id.Timer);
         timerText.setTextColor(WHITE);
 
-        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
+        Intent game = getIntent();
+        quest = game.getIntExtra("Questions", NumberOfQ);
+        time = game.getIntExtra("Time", TimePerQ);
+        diff = game.getStringExtra("Difficulty");
+        category = "category=" + game.getStringExtra("Category");
 
-        timer = new CountDownTimer(10000, 1000) {
+
+
+        final Intent Home = new Intent(GameActivity.this, HomeActivity.class);
+        timer = new CountDownTimer( time * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerText.setText(seconds + " Seconds Left");
@@ -104,7 +119,7 @@ public class GameActivity extends HomeActivity {
 
             @Override
             public void onFinish() {
-                seconds = 10;
+                seconds = time;
                 timerText.setText(seconds + " Seconds Left");
                 JsonParse();
             }
@@ -113,16 +128,17 @@ public class GameActivity extends HomeActivity {
         final CountDownTimer t = new CountDownTimer(1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                s -= 1;
+                s -= 8;
                 timer.cancel();
-                if (s == -3) {
+                if (s == -16) {
                     onFinish();
                 }
             }
 
             @Override
             public void onFinish() {
-                if (Index % 15 == 0) {
+                if (Index == quest) {
+                    Index = 0;
                     startActivity(Home);
                 } else {
                     JsonParse();
@@ -134,7 +150,7 @@ public class GameActivity extends HomeActivity {
         NextQuestion.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                seconds = 10;
+                seconds = time;
                 NextQuestion.setVisibility(View.GONE);
                 JsonParse();
                 Questions.setVisibility(View.VISIBLE);
@@ -149,7 +165,7 @@ public class GameActivity extends HomeActivity {
         Answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seconds = 10;
+                seconds = time;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer1.getText().toString().equals(correctAnswer)) {
                     Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
@@ -174,7 +190,7 @@ public class GameActivity extends HomeActivity {
         Answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seconds = 10;
+                seconds = time;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer2.getText().toString().equals(correctAnswer)) {
                     Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
@@ -199,7 +215,7 @@ public class GameActivity extends HomeActivity {
         Answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seconds = 10;
+                seconds = time;
                 NextQuestion.setVisibility(View.GONE);
                 if (Answer3.getText().toString().equals(correctAnswer)) {
                     Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
@@ -224,7 +240,7 @@ public class GameActivity extends HomeActivity {
         Answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                seconds = 10;
+                seconds = time;
                 NextQuestion.setVisibility(View.GONE);
 
                 if (Answer4.getText().toString().equals(correctAnswer)) {
@@ -249,7 +265,7 @@ public class GameActivity extends HomeActivity {
     }
 
     private void JsonParse() {
-        final String url = "https://opentdb.com/api.php?amount=50&type=multiple&encode=base64";
+        final String url = "https://opentdb.com/api.php?amount=50&" + category + "&type=multiple&encode=base64";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -257,33 +273,40 @@ public class GameActivity extends HomeActivity {
                         try {
                             JSONArray Array = response.getJSONArray("results");
                             for (int i = 0; i < Array.length(); i++) {
-
                                 JSONObject result = Array.getJSONObject(rand.nextInt(50));
-                                question = result.getString("question");
-                                byte[] actualByte = Base64.getDecoder().decode(question);
-                                question = new String(actualByte);
-                                correctAnswer = result.getString("correct_answer");
-                                byte[] ca = Base64.getDecoder().decode(correctAnswer);
-                                correctAnswer = new String(ca);
-                                answers.set(3, correctAnswer);
-                                JSONArray incorrectAnswer = result.getJSONArray("incorrect_answers");
+                                difficulty = result.getString("difficulty");
+                                byte[] dfclty = Base64.getDecoder().decode(difficulty);
+                                difficulty = new String(dfclty);
 
-                                for (int j = 0; j < incorrectAnswer.length(); j++) {
+                                if (diff.equals(difficulty)) {
 
-                                    firstAnswer = incorrectAnswer.getString(0);
-                                    byte[] fa = Base64.getDecoder().decode(firstAnswer);
-                                    firstAnswer = new String(fa);
-                                    answers.set(0, firstAnswer);
-                                    secondAnswer = incorrectAnswer.getString(1);
-                                    byte[] sa = Base64.getDecoder().decode(secondAnswer);
-                                    secondAnswer = new String(sa);
-                                    answers.set(1, secondAnswer);
-                                    thirdAnswer = incorrectAnswer.getString(2);
-                                    byte[] ta = Base64.getDecoder().decode(thirdAnswer);
-                                    thirdAnswer = new String(ta);
-                                    answers.set(2, thirdAnswer);
+                                    question = result.getString("question");
+                                    byte[] actualByte = Base64.getDecoder().decode(question);
+                                    question = new String(actualByte);
+                                    correctAnswer = result.getString("correct_answer");
+                                    byte[] ca = Base64.getDecoder().decode(correctAnswer);
+                                    correctAnswer = new String(ca);
+                                    answers.set(3, correctAnswer);
+                                    JSONArray incorrectAnswer = result.getJSONArray("incorrect_answers");
+                                    System.out.println(difficulty);
+                                    System.out.println(category);
 
+                                    for (int j = 0; j < incorrectAnswer.length(); j++) {
 
+                                        firstAnswer = incorrectAnswer.getString(0);
+                                        byte[] fa = Base64.getDecoder().decode(firstAnswer);
+                                        firstAnswer = new String(fa);
+                                        answers.set(0, firstAnswer);
+                                        secondAnswer = incorrectAnswer.getString(1);
+                                        byte[] sa = Base64.getDecoder().decode(secondAnswer);
+                                        secondAnswer = new String(sa);
+                                        answers.set(1, secondAnswer);
+                                        thirdAnswer = incorrectAnswer.getString(2);
+                                        byte[] ta = Base64.getDecoder().decode(thirdAnswer);
+                                        thirdAnswer = new String(ta);
+                                        answers.set(2, thirdAnswer);
+
+                                    }
                                 }
                             }
 

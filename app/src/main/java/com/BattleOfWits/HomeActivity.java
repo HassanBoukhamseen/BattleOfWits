@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private Button Gamestart;
+    private Button Gamestart, settings;
     private TextView Score, Record;
     private int record, score = 0;
 
@@ -30,8 +30,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GameActivity.count = 0;
-                Intent game = new Intent(HomeActivity.this, GameActivity.class);
-                startActivity(game);
+                Intent settings = new Intent(HomeActivity.this, CustomizationActivity.class);
+                startActivity(settings);
 
             }
         });
