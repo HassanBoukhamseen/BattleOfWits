@@ -16,21 +16,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private String email, password;
-    private EditText EmailSignIn, PassSignIn;
-    private Button SignIn;
+    private EditText emailSignIn, passSignIn;
+    private Button signIn;
     private FirebaseAuth AuthSignIn;
-    private FirebaseAuth.AuthStateListener AuthSignInListener;
+    private FirebaseAuth.AuthStateListener authSignInListener;
     private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EmailSignIn = findViewById(R.id.EmailSignIn);
-        PassSignIn = findViewById(R.id.PassSignIn);
+        emailSignIn = findViewById(R.id.EmailSignIn);
+        passSignIn = findViewById(R.id.PassSignIn);
         AuthSignIn = FirebaseAuth.getInstance();
-        SignIn = findViewById(R.id.SingIn);
-        AuthSignInListener = new FirebaseAuth.AuthStateListener() {
+        signIn = findViewById(R.id.SingIn);
+        authSignInListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = AuthSignIn.getCurrentUser();
@@ -45,17 +45,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        SignIn.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = EmailSignIn.getText().toString();
-                password = PassSignIn.getText().toString();
+                email = emailSignIn.getText().toString();
+                password = passSignIn.getText().toString();
                 if (email.isEmpty() && !password.isEmpty()) {
-                    EmailSignIn.setError("Please Enter Your Email Address");
-                    EmailSignIn.requestFocus();
+                    emailSignIn.setError("Please Enter Your Email Address");
+                    emailSignIn.requestFocus();
                 } else if (password.isEmpty() && !email.isEmpty()) {
-                    PassSignIn.setError("Please Enter Your Password");
-                    PassSignIn.requestFocus();
+                    passSignIn.setError("Please Enter Your Password");
+                    passSignIn.requestFocus();
                 } else if (password.isEmpty() && email.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please Enter Your Email and Password",
                             Toast.LENGTH_SHORT).show();

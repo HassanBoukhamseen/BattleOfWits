@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Button SignUp, DA;
-    private EditText Email, Password;
-    private TextView  AccountExists;
+    private Button signUp, developerAccess;
+    private EditText emailTextView, passwordTextView;
+    private TextView  accountExists;
     private String email, password;
     private FirebaseAuth auth;
     List<String> emails = new ArrayList<>();
@@ -29,29 +29,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Email = findViewById(R.id.Email);
-        Password = findViewById(R.id.Password);
-        SignUp = findViewById(R.id.SignUp);
-        DA = findViewById(R.id.DA);
+        emailTextView = findViewById(R.id.Email);
+        passwordTextView = findViewById(R.id.Password);
+        signUp = findViewById(R.id.SignUp);
+        developerAccess = findViewById(R.id.DA);
         auth = FirebaseAuth.getInstance();
-        DA.setOnClickListener(new View.OnClickListener() {
+        developerAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent quickAccess = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(quickAccess);
             }
         });
-        SignUp.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = Email.getText().toString();
-                password = Password.getText().toString();
+                email = emailTextView.getText().toString();
+                password = passwordTextView.getText().toString();
                 if (email.isEmpty() && !password.isEmpty()) {
-                    Email.setError("Please Enter Your Email Address");
-                    Email.requestFocus();
+                    emailTextView.setError("Please Enter Your Email Address");
+                    emailTextView.requestFocus();
                 } else if (password.isEmpty() && !email.isEmpty()) {
-                    Password.setError("Please Enter Your Password");
-                    Password.requestFocus();
+                    passwordTextView.setError("Please Enter Your Password");
+                    passwordTextView.requestFocus();
                 } else if (password.isEmpty() && email.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please Enter Your Email and Password",
                             Toast.LENGTH_SHORT).show();
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        AccountExists = findViewById(R.id.AccountVrif);
-        AccountExists.setOnClickListener(new View.OnClickListener() {
+        accountExists = findViewById(R.id.AccountVrif);
+        accountExists.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Login = new Intent(MainActivity.this, LoginActivity.class);

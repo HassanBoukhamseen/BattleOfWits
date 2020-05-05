@@ -8,25 +8,25 @@ import android.widget.TextView;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private Button Gamestart, settings;
-    private TextView Score, Record;
+    private Button gamestart, settings;
+    private TextView scoreTextView, recordTextView;
     private int record, score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Gamestart = findViewById(R.id.GameStart);
-        Score = findViewById(R.id.Score);
-        Record = findViewById(R.id.Record);
+        gamestart = findViewById(R.id.GameStart);
+        scoreTextView = findViewById(R.id.Score);
+        recordTextView = findViewById(R.id.Record);
         score = GameActivity.count;
-        Score.setText(score + "");
+        scoreTextView.setText(score + "");
         record = GameActivity.temp;
-        Record.setText(Math.max(record, score) + "");
+        recordTextView.setText(Math.max(record, score) + "");
         if (GameActivity.count >= GameActivity.temp) {
             GameActivity.temp = GameActivity.count;
         }
-        Gamestart.setOnClickListener(new View.OnClickListener() {
+        gamestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GameActivity.count = 0;

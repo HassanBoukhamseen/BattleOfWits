@@ -34,9 +34,9 @@ import static android.graphics.Color.WHITE;
 
 public class GameActivity extends CustomizationActivity {
 
-    private RequestQueue QueueRequest;
-    private TextView Questions, timerText;
-    private Button Answer1, Answer2, Answer3, Answer4, NextQuestion;
+    private RequestQueue queueRequest;
+    private TextView allQuestions, timerText;
+    private Button answer1, answer2, answer3, answer4, nextQuestion;
     private String firstAnswer;
     private String secondAnswer;
     private String thirdAnswer;
@@ -47,12 +47,13 @@ public class GameActivity extends CustomizationActivity {
     private String category;
     private Random rand = new Random();
     static int count = 0;
+    static int i = 0;
     static int temp = 0;
-    static int Index;
+    static int index;
     static int time = 0;
     static int quest = 0;
-    int NumberOfQ = 15;
-    int TimePerQ = 10;
+    int numberOfQ = 15;
+    int timePerQ = 10;
     int seconds = 10;
     private CountDownTimer timer;
     int s = 1;
@@ -81,26 +82,26 @@ public class GameActivity extends CustomizationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        QueueRequest = Volley.newRequestQueue(this);
+        queueRequest = Volley.newRequestQueue(this);
 
-        Questions = findViewById(R.id.Question);
-        Answer1 = findViewById(R.id.Answer1);
-        Answer2 = findViewById(R.id.Answer2);
-        Answer3 = findViewById(R.id.Answer3);
-        Answer4 = findViewById(R.id.Answer4);
+        allQuestions = findViewById(R.id.Question);
+        answer1 = findViewById(R.id.Answer1);
+        answer2 = findViewById(R.id.Answer2);
+        answer3 = findViewById(R.id.Answer3);
+        answer4 = findViewById(R.id.Answer4);
 
-        Questions.setVisibility(View.GONE);
-        Answer1.setVisibility(View.GONE);
-        Answer2.setVisibility(View.GONE);
-        Answer3.setVisibility(View.GONE);
-        Answer4.setVisibility(View.GONE);
+        allQuestions.setVisibility(View.GONE);
+        answer1.setVisibility(View.GONE);
+        answer2.setVisibility(View.GONE);
+        answer3.setVisibility(View.GONE);
+        answer4.setVisibility(View.GONE);
 
         timerText = findViewById(R.id.Timer);
         timerText.setTextColor(WHITE);
 
         Intent game = getIntent();
-        quest = game.getIntExtra("Questions", NumberOfQ);
-        time = game.getIntExtra("Time", TimePerQ);
+        quest = game.getIntExtra("Questions", numberOfQ);
+        time = game.getIntExtra("Time", timePerQ);
         diff = game.getStringExtra("Difficulty");
         category = "category=" + game.getStringExtra("Category");
 
@@ -137,8 +138,8 @@ public class GameActivity extends CustomizationActivity {
 
             @Override
             public void onFinish() {
-                if (Index == quest) {
-                    Index = 0;
+                if (index == quest) {
+                    index = 0;
                     startActivity(Home);
                 } else {
                     JsonParse();
@@ -146,120 +147,124 @@ public class GameActivity extends CustomizationActivity {
             }
         };
 
-        NextQuestion = findViewById(R.id.NextQuestion);
-        NextQuestion.setOnClickListener(new View.OnClickListener() {
+        nextQuestion = findViewById(R.id.NextQuestion);
+        nextQuestion.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 seconds = time;
-                NextQuestion.setVisibility(View.GONE);
+                nextQuestion.setVisibility(View.GONE);
                 JsonParse();
-                Questions.setVisibility(View.VISIBLE);
-                Answer1.setVisibility(View.VISIBLE);
-                Answer2.setVisibility(View.VISIBLE);
-                Answer3.setVisibility(View.VISIBLE);
-                Answer4.setVisibility(View.VISIBLE);
+                allQuestions.setVisibility(View.VISIBLE);
+                answer1.setVisibility(View.VISIBLE);
+                answer2.setVisibility(View.VISIBLE);
+                answer3.setVisibility(View.VISIBLE);
+                answer4.setVisibility(View.VISIBLE);
             }
         });
 
 
-        Answer1.setOnClickListener(new View.OnClickListener() {
+        answer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 seconds = time;
-                NextQuestion.setVisibility(View.GONE);
-                if (Answer1.getText().toString().equals(correctAnswer)) {
-                    Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                nextQuestion.setVisibility(View.GONE);
+                if (answer1.getText().toString().equals(correctAnswer)) {
+                    answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                     shakeItBaby();
-                } else if (!(Answer1.getText().toString().equals(correctAnswer))) {
-                    Answer1.setBackgroundTintList(ColorStateList.valueOf(RED));
+                } else if (!(answer1.getText().toString().equals(correctAnswer))) {
+                    answer1.setBackgroundTintList(ColorStateList.valueOf(RED));
                     slightShake();
-                    if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    if (answer2.getText().toString().equals(correctAnswer)) {
+                        answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer3.getText().toString().equals(correctAnswer)) {
+                        answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer4.getText().toString().equals(correctAnswer)) {
+                        answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
-                Index++;
+                index++;
                 t.start();
+                i++;
             }
         });
 
-        Answer2.setOnClickListener(new View.OnClickListener() {
+        answer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 seconds = time;
-                NextQuestion.setVisibility(View.GONE);
-                if (Answer2.getText().toString().equals(correctAnswer)) {
-                    Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                nextQuestion.setVisibility(View.GONE);
+                if (answer2.getText().toString().equals(correctAnswer)) {
+                    answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                     shakeItBaby();
-                } else if (!(Answer2.getText().toString().equals(correctAnswer))) {
-                    Answer2.setBackgroundTintList(ColorStateList.valueOf(RED));
+                } else if (!(answer2.getText().toString().equals(correctAnswer))) {
+                    answer2.setBackgroundTintList(ColorStateList.valueOf(RED));
                     slightShake();
-                    if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    if (answer1.getText().toString().equals(correctAnswer)) {
+                        answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer3.getText().toString().equals(correctAnswer)) {
+                        answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer4.getText().toString().equals(correctAnswer)) {
+                        answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
-                Index++;
+                index++;
                 t.start();
+                i++;
             }
         });
 
-        Answer3.setOnClickListener(new View.OnClickListener() {
+        answer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 seconds = time;
-                NextQuestion.setVisibility(View.GONE);
-                if (Answer3.getText().toString().equals(correctAnswer)) {
-                    Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                nextQuestion.setVisibility(View.GONE);
+                if (answer3.getText().toString().equals(correctAnswer)) {
+                    answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                     shakeItBaby();
-                } else if (!(Answer3.getText().toString().equals(correctAnswer))) {
-                    Answer3.setBackgroundTintList(ColorStateList.valueOf(RED));
+                } else if (!(answer3.getText().toString().equals(correctAnswer))) {
+                    answer3.setBackgroundTintList(ColorStateList.valueOf(RED));
                     slightShake();
-                    if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer4.getText().toString().equals(correctAnswer)) {
-                        Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    if (answer2.getText().toString().equals(correctAnswer)) {
+                        answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer1.getText().toString().equals(correctAnswer)) {
+                        answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer4.getText().toString().equals(correctAnswer)) {
+                        answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
-                Index++;
+                index++;
                 t.start();
+                i++;
             }
         });
 
-        Answer4.setOnClickListener(new View.OnClickListener() {
+        answer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 seconds = time;
-                NextQuestion.setVisibility(View.GONE);
+                nextQuestion.setVisibility(View.GONE);
 
-                if (Answer4.getText().toString().equals(correctAnswer)) {
-                    Answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                if (answer4.getText().toString().equals(correctAnswer)) {
+                    answer4.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     count++;
                     shakeItBaby();
-                } else if (!(Answer4.getText().toString().equals(correctAnswer))) {
-                    Answer4.setBackgroundTintList(ColorStateList.valueOf(RED));
+                } else if (!(answer4.getText().toString().equals(correctAnswer))) {
+                    answer4.setBackgroundTintList(ColorStateList.valueOf(RED));
                     slightShake();
-                    if (Answer2.getText().toString().equals(correctAnswer)) {
-                        Answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer3.getText().toString().equals(correctAnswer)) {
-                        Answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
-                    } else if (Answer1.getText().toString().equals(correctAnswer)) {
-                        Answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    if (answer2.getText().toString().equals(correctAnswer)) {
+                        answer2.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer3.getText().toString().equals(correctAnswer)) {
+                        answer3.setBackgroundTintList(ColorStateList.valueOf(GREEN));
+                    } else if (answer1.getText().toString().equals(correctAnswer)) {
+                        answer1.setBackgroundTintList(ColorStateList.valueOf(GREEN));
                     }
                 }
-                Index++;
+                index++;
                 t.start();
+                i++;
             }
         });
     }
@@ -315,32 +320,68 @@ public class GameActivity extends CustomizationActivity {
                                 Collections.shuffle(answers);
                             }
 
-                            Questions.setText(question);
-                            Answer1.setText(answers.get(2));
-                            Answer2.setText(answers.get(0));
-                            Answer3.setText(answers.get(1));
-                            Answer4.setText(answers.get(3));
+                            allQuestions.setText(question);
+                            answer1.setText(answers.get(2));
+                            answer2.setText(answers.get(0));
+                            answer3.setText(answers.get(1));
+                            answer4.setText(answers.get(3));
 
                             int ourColor = Color.parseColor("#0F709C");
-                            Answer1.setBackgroundTintList(ColorStateList.valueOf(ourColor));
-                            Answer2.setBackgroundTintList(ColorStateList.valueOf(ourColor));
-                            Answer3.setBackgroundTintList(ColorStateList.valueOf(ourColor));
-                            Answer4.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            answer1.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            answer2.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            answer3.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                            answer4.setBackgroundTintList(ColorStateList.valueOf(ourColor));
 
                             timer.cancel();
                             timer.start();
-
                         } catch (JSONException e) {
                             e.printStackTrace();
+
+
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                if (i == 4) {
+                    i = 0;
+                    Intent home = new Intent(GameActivity.this, HomeActivity.class);
+                    startActivity(home);
+                }
+                String[] question1 = {"What is the average grade of CS125?", "B", "A", "C", "D"};
+                String[] question2 = {"How much is the Final Project grade worth?", "20 %", "10 %", "15 %", "Its just extra credit"};
+                String[] question3 = {"How much Are quizzes worth?", "20%", "22%", "24%", "30%"};
+                String[] question4 = {"How many MP drops do we have this semester?", "5", "2", "None", "1"};
+                String[][] allQuest = {question1, question2, question3, question4};
+                if (i == 0) {
+                    correctAnswer = question1[2];
+                } else if (i == 1) {
+                    correctAnswer = question2[2];
+                } else if (i == 2) {
+                    correctAnswer = question3[3];
+                } else {
+                    correctAnswer = question4[4];
+                }
+                allQuestions.setText(allQuest[i][0]);
+                answer1.setText(allQuest[i][1]);
+                answer2.setText(allQuest[i][2]);
+                answer3.setText(allQuest[i][3]);
+                answer4.setText(allQuest[i][4]);
+
+
+                int ourColor = Color.parseColor("#0F709C");
+                answer1.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                answer2.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                answer3.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+                answer4.setBackgroundTintList(ColorStateList.valueOf(ourColor));
+
+                timer.cancel();
+                timer.start();
+
             }
         });
-        QueueRequest.add(request);
+        queueRequest.add(request);
     }
 
 }
